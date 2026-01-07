@@ -1,38 +1,60 @@
 import csv
-def dms_para_decimal(graus, minutos, segundos, hemisferio):
-    
-  valor_decimal = graus + (minutos / 60) + (segundos / 3600) 
+from datetime import datetime
 
-  if hemisferio.upper() in ['S', 'W']: 
-    valor_decimal *= -1 
-    
-  return valor_decimal
-  
+def dms_para_decimal(graus, minutos, segundos, hemisferio):
+    valor_decimal = graus + (minutos / 60) + (segundos / 3600)
+    if hemisferio in ['S', 'W']:
+        valor_decimal *= -1
+    return valor_decimal
+
+
+def ler_coordenada(tipo):
+    print(f"\n--- {tipo.upper()} ---")
+    graus = int(input("Graus: "))
+    minutos = int(input("Minutos: "))
+    segundos = int(input("Segundos: "))
+    hemisferio = input("Hemisfério (N/S ou E/W): ").strip().upper()
+    return graus, minutos, segundos, hemisferio
+
 def main():
     print("=== GEO2DEC: Conversor de Coordenadas ===")
-    coordenadas = []
 
-    while True:
-        grau = int(input("Digite os graus: "))
-        minutos = int(input("Digite os minutos: ")
-        segundos = int(input("Digite os segundos: ")
-        hemisferio = input("Digite o hemisferio (N/S ou E/W").strip().upper()
+    # Arquivo com nome único
+    data_hora = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    nome_arquivo = f"coordenadas_{data_hora}.csv"
 
-        resultado = dms_para_decimal(grau, minutos, segundos, hemisferio)
-        print (f"Coordenada em decimal: {resultado}")
+    with open(nome_arquivo, "w", newline="", encoding="utf-8") as arquivo:
+        escritor = csv.writer(arquivo)
 
-        coordenadas.append([graus, minutos, segundos, hemisferio, resultado])
+        while True:
+            # LATITUDE
+            g_lat, m_lat, s_lat, h_lat = ler_coordenada("Latitude")
+            lat_dec = dms_para_decimal(g_lat, m_lat, s_lat, h_lat)
 
-        continuar = input("Deseja converter outra coordenada? (S/N)").strip().uppe
-          if continuar != 'S':
-            break
+            # LONGITUDE
+            g_lon, m_lon, s_lon, h_lon = ler_coordenada("Longitude")
+            lon_dec = dms_para_decimal(g_lon, m_lon, s_lon, h_lon)
 
-with open("coordenadas_convertidas.csv", mode="w", newline="", encoding="utf-8") as arquivo: 
-    escritor = csv.writer(arquivo) 
-    escritor.writerow(["Graus", "Minutos", "Segundos", "Hemisfério", "Decimal"]) 
-    escritor.writerows(coordenadas) 
-  
-  print("Arquivo 'coordenadas_convertidas.csv' salvo com sucesso!") 
+            # BLOCO LATITUDE
+            escritor.writerow(
+                ["Lat Graus", "Lat Minutos", "Lat Segundos", "Lat Hemisfério", "Latitude Decimal"]
+            )
+            escritor.writerow([g_lat, m_lat, s_lat, h_lat, lat_dec])
 
-if __name__ == "__main__": 
-  main()
+            # BLOCO LONGITUDE
+            escritor.writerow(
+                ["Lon Graus", "Lon Minutos", "Lon Segundos", "Lon Hemisfério", "Longitude Decimal"]
+            )
+            escritor.writerow([g_lon, m_lon, s_lon, h_lon, lon_dec])
+
+            escritor.writerow([])  # Linha propositalmente em branco para melhorar visualização
+
+            continuar = input("Adicionar outra coordenada neste arquivo? (S/N): ").strip().upper()
+            if continuar != 'S':
+                break
+
+    print(f"\nArquivo '{nome_arquivo}' gerado com sucesso!")
+
+
+if __name__ == "__main__":
+    main()
