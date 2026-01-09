@@ -1,7 +1,7 @@
-# GEO2DEC – Conversor de Coordenadas Geográficas
+# GMS2DEC – Conversor de Coordenadas Geográficas
 
 ## 📌 O que é
-O **GEO2DEC** é um programa em Python que converte coordenadas geográficas no formato  
+O **GMS2DEC** é um programa em Python que converte coordenadas geográficas no formato  
 **GMS (Graus, Minutos e Segundos)** para **graus decimais**.
 
 Ele trabalha com **latitude e longitude**, formando uma coordenada completa e válida para mapas.
