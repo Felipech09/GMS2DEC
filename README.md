@@ -27,3 +27,9 @@ Ele trabalha com **latitude e longitude**, formando uma coordenada completa e v�
 
 - Cada execução do programa gera **um novo arquivo CSV**, evitando sobrescrita.
 - O nome do arquivo inclui data e hora, por exemplo
+
+## Como fica o resultado final:
+
+<img width="482" height="273" alt="Image" src="https://github.com/user-attachments/assets/5c67d8d5-c96a-40a9-941f-498853b5b702" />
+
+<img width="594" height="215" alt="Image" src="https://github.com/user-attachments/assets/7696511d-2ee8-44f8-814a-1363a67fd8bd" />
