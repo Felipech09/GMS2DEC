@@ -1,7 +1,7 @@
 import csv
 from datetime import datetime
 
-def dms_para_decimal(graus, minutos, segundos, hemisferio):
+def gms_para_decimal(graus, minutos, segundos, hemisferio):
     valor_decimal = graus + (minutos / 60) + (segundos / 3600)
     if hemisferio in ['S', 'W']:
         valor_decimal *= -1
@@ -29,11 +29,11 @@ def main():
         while True:
             # LATITUDE
             g_lat, m_lat, s_lat, h_lat = ler_coordenada("Latitude")
-            lat_dec = dms_para_decimal(g_lat, m_lat, s_lat, h_lat)
+            lat_dec = gms_para_decimal(g_lat, m_lat, s_lat, h_lat)
 
             # LONGITUDE
             g_lon, m_lon, s_lon, h_lon = ler_coordenada("Longitude")
-            lon_dec = dms_para_decimal(g_lon, m_lon, s_lon, h_lon)
+            lon_dec = gms_para_decimal(g_lon, m_lon, s_lon, h_lon)
 
             # BLOCO LATITUDE
             escritor.writerow(
@@ -41,13 +41,13 @@ def main():
             )
             escritor.writerow([g_lat, m_lat, s_lat, h_lat, lat_dec])
 
+            escritor.writerow([])  # Linha propositalmente em branco para melhorar visualização
+
             # BLOCO LONGITUDE
             escritor.writerow(
                 ["Lon Graus", "Lon Minutos", "Lon Segundos", "Lon Hemisfério", "Longitude Decimal"]
             )
             escritor.writerow([g_lon, m_lon, s_lon, h_lon, lon_dec])
-
-            escritor.writerow([])  # Linha propositalmente em branco para melhorar visualização
 
             continuar = input("Adicionar outra coordenada neste arquivo? (S/N): ").strip().upper()
             if continuar != 'S':
